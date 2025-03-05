@@ -1,0 +1,55 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: AGREGAR DESCRIPTION
+Parameters:
+  Runtime:
+    Type: String
+  LambdaName:
+    Type: String
+  LambdaDescription:
+    Type: String
+  MemorySize:
+    Type: String
+  Timeout:
+    Type: String
+  Role:
+    Type: String
+  SecurityGroupId:
+    Type: CommaDelimitedList
+  SubnetIds:
+    Type: CommaDelimitedList
+  Tracing:
+    Type: String
+  LayerList:
+    Type: CommaDelimitedList
+  SSMPARAMETERSTORETTL:
+    Type: String
+  envrefreshsecrets:
+    Type: String
+  envlambdaflowcode:
+    Type: String
+Resources:
+  lfmdwrecarga:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lambda_function.lambda_handler
+      Runtime: !Ref 'Runtime'
+      CodeUri: ./src/
+      Description: !Ref 'LambdaDescription'
+      FunctionName: !Ref 'LambdaName'
+      MemorySize: !Ref 'MemorySize'
+      Timeout: !Ref 'Timeout'
+      Tracing: !Ref 'Tracing'
+      Role: !Ref 'Role'
+      VpcConfig:
+        SecurityGroupIds: !Ref 'SecurityGroupId'
+        SubnetIds: !Ref 'SubnetIds'
+      Layers: !Ref 'LayerList'
+      Environment:
+        Variables:
+          SSM_PARAMETER_STORE_TTL: !Ref 'SSMPARAMETERSTORETTL'
+          env_refresh_secrets: !Ref 'envrefreshsecrets'
+          env_lambda_flow_code: !Ref 'envlambdaflowcode'
+      Tags:
+        Environment: prod
+        Functionality: recharge_flow

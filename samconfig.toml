@@ -1,0 +1,116 @@
+version = 0.1
+
+[default.package.parameters]
+template_file = "template.yaml"
+output_template_file = "package.yml"
+region = "us-east-1"
+
+[dev.package.parameters]
+template_file = "template.yaml"
+output_template_file = "package.yml"
+region = "us-east-1"
+s3_bucket = "bucket-lambda-functions-artifacts"
+
+[dev.deploy.parameters]
+stack_name = "cf-dev-nombre-del-lambda"
+s3_bucket = "bucket-lambda-functions-artifacts"
+region = "us-east-1"
+confirm_changeset = false
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = [
+    "Role=arn:aws:iam::730335559791:role/r-mid-functional-lambda",
+    "SecurityGroupId=sg-0d8b1155edde33c3d",
+    "LambdaDescription=\"Recarga\"",
+    "SubnetIds=subnet-0fde6cfd75379f37c,subnet-03b33bfe9652018d3",
+    "LambdaName=lf-mdw-nombre-del-lambda",
+    "Runtime=python3.11",
+    "MemorySize=128",
+    "Timeout=30",
+    "Tracing=Active",
+    "LayerList=arn:aws:lambda:us-east-1:730335559791:layer:ly-common-utils:348,arn:aws:lambda:us-east-1:730335559791:layer:ly-tokenization-process:72,arn:aws:lambda:us-east-1:730335559791:layer:ly-libs-utils:4,arn:aws:lambda:us-east-1:177933569100:layer:AWS-Parameters-and-Secrets-Lambda-Extension:12",
+    "SSMPARAMETERSTORETTL=300",
+    "envrefreshsecrets=0",
+    "envlambdaflowcode=FDLP_24",
+]
+
+[qa.package.parameters]
+template_file = "template.yaml"
+output_template_file = "package.yml"
+region = "us-east-1"
+s3_bucket = "bucket-lambda-functions-artifacts-qa"
+
+[qa.deploy.parameters]
+stack_name = "cf-qa-lf-mdw-recarga"
+s3_bucket = "bucket-lambda-functions-artifacts-qa"
+region = "us-east-1"
+confirm_changeset = false
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = [
+    "Role=arn:aws:iam::654654564402:role/r-mid-functional-lambda",
+    "SecurityGroupId=sg-025363333bdb503cf",
+    "SubnetIds=subnet-06e746d1d92c1d2a2,subnet-0ea850b82cc406eba",
+    "LambdaDescription=\"Recarga\"",
+    "LambdaName=lf-mdw-recarga",
+    "Runtime=python3.11",
+    "MemorySize=256",
+    "Timeout=30",
+    "Tracing=Active",
+    "LayerList=arn:aws:lambda:us-east-1:654654564402:layer:ly-common-utils:27,arn:aws:lambda:us-east-1:654654564402:layer:ly-tokenization-process:1,arn:aws:lambda:us-east-1:654654564402:layer:ly-libs-utils:1,arn:aws:lambda:us-east-1:177933569100:layer:AWS-Parameters-and-Secrets-Lambda-Extension:12",
+    "SSMPARAMETERSTORETTL=300",
+    "envrefreshsecrets=0",
+    "envlambdaflowcode=FDLP_24",
+]
+
+[prd.package.parameters]
+template_file = "template.yaml"
+output_template_file = "package.yml"
+region = "us-east-1"
+s3_bucket = "bucket-lambda-functions-artifacts-prd-474668388170"
+
+[prd.deploy.parameters]
+stack_name = "cfprdlfmdwrecarga"
+s3_bucket = "bucket-lambda-functions-artifacts-prd-474668388170"
+region = "us-east-1"
+confirm_changeset = false
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = [
+    "Role=arn:aws:iam::474668388170:role/r-mid-functional-lambda",
+    "SecurityGroupId=sg-09d909577b26342e4",
+    "SubnetIds=subnet-000c0aa0a54bdf0b1,subnet-0ef04340da3680cde",
+    "LambdaDescription=\"Recarga\"",
+    "LambdaName=lf-mdw-recarga",
+    "Runtime=python3.11",
+    "MemorySize=256",
+    "Timeout=30",
+    "Tracing=Active",
+    "LayerList=arn:aws:lambda:us-east-1:474668388170:layer:ly-common-utils:4,arn:aws:lambda:us-east-1:474668388170:layer:ly-tokenization-process:1,arn:aws:lambda:us-east-1:474668388170:layer:ly-libs-utils:1,arn:aws:lambda:us-east-1:177933569100:layer:AWS-Parameters-and-Secrets-Lambda-Extension:12",
+    "SSMPARAMETERSTORETTL=300",
+    "envrefreshsecrets=0",
+    "envlambdaflowcode=FDLP_24",
+]
+
+[dr.package.parameters]
+template_file = "template.yaml"
+output_template_file = "package.yml"
+region = "us-east-2"
+s3_bucket = "bucket-lambda-functions-artifacts-prd-474668388170"
+
+[dr.deploy.parameters]
+stack_name = "lfmdwultimosmovimientosappbim"
+s3_bucket = "bucket-lambda-functions-artifacts-prd-474668388170"
+region = "us-east-2"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = [
+    "LambdaName=lf-mdw-ultimos-movimientos-app-bim",
+    "Role=arn:aws:iam::474668388170:role/r-mid-functional-lambda-dr",
+    "Tracing=Active",
+    "Runtime=python3.11",
+    "envlambdaflowcode=FDLP_13",
+    "LayerList=arn:aws:lambda:us-east-2:474668388170:layer:ly-common-utils:2,arn:aws:lambda:us-east-2:474668388170:layer:ly-libs-utils-311-2:1,arn:aws:lambda:us-east-2:474668388170:layer:ly-tokenization-process:1,arn:aws:lambda:us-east-2:474668388170:layer:AWS-Parameters-and-Secrets-Lambda-Extension:1",
+    "SecurityGroupId=sg-032fdb9d4b7b375c0",
+    "SubnetIds=subnet-0938a5ef767ab8d22,subnet-0560b4fd8568f4b89",
+    "envdydtablatrazaapp=traza_app_bim",
+    "envtablebitelconcilia=pagos_bitel",
+    "envioronment=prd",
+]
